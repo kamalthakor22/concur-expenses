@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense Report Imitation</title>
+    <title>Expense Report April 2010</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300,400,500,700&display=swap" rel="stylesheet">
     <style>
         /* General Styles and Reset */
@@ -263,10 +263,57 @@
             align-items: center;
         }
 
+        /* SAP Concur Logo Styles */
         .concur-logo {
+            display: flex;
+            align-items: center;
             font-size: 18px;
             font-weight: 700;
-            color: #0067b5;
+        }
+
+        .sap-anvil {
+            /* Create the yellow/orange SAP 'Anvil' icon using a triangle and a rectangle */
+            position: relative;
+            display: inline-block;
+            margin-right: 5px;
+            width: 16px;
+            height: 16px;
+        }
+        
+        .sap-anvil::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid #F0AB00; /* SAP Orange/Yellow */
+        }
+        
+        .sap-anvil::after {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: 0;
+            width: 16px;
+            height: 8px;
+            background-color: #F0AB00; /* SAP Orange/Yellow */
+        }
+
+        .logo-text {
+            color: #0067b5; /* SAP Concur blue */
+        }
+
+        .logo-text .sap-part {
+            font-weight: 400;
+            font-size: 14px;
+            margin-right: 2px;
+        }
+
+        .logo-text .concur-part {
+            font-weight: 700;
         }
 
         .youtube-icon {
@@ -440,7 +487,13 @@
     </div>
 
     <div class="footer">
-        <div class="concur-logo">SAP **Concur**</div>
+        <div class="concur-logo">
+            <span class="sap-anvil"></span>
+            <div class="logo-text">
+                <span class="sap-part">SAP</span>
+                <span class="concur-part">Concur</span>
+            </div>
+        </div>
         <div class="youtube-icon"><span class="f-icon fa-youtube"></span></div>
     </div>
 </body>
