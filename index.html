@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense Report April 2010</title>
+    <title>Expense Report March 2010</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300,400,500,700&display=swap" rel="stylesheet">
     <style>
         /* General Styles and Reset */
@@ -66,7 +66,27 @@
             cursor: pointer;
             font-size: 18px;
         }
+        /* Secondary Navigation (New addition) */
+        .secondary-nav {
+            background-color: white;
+            padding: 0 40px;
+            border-bottom: 1px solid #ddd;
+        }
 
+        .nav-link {
+            display: inline-block;
+            padding: 10px 0;
+            margin-right: 25px;
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-link.active {
+            color: #1a1a1a;
+            border-bottom: 3px solid #0067b5;
+            padding-bottom: 7px; /* Adjust padding to make up for border height */
+        }
         /* Main Content Area */
         .main-container {
             padding: 0 40px;
@@ -367,35 +387,20 @@
             <span class="icon-button"><span class="f-icon fa-caret-down"></span></span>
         </div>
     </div>
-
+    <div class="secondary-nav">
+        <a href="#" class="nav-link active">Manage Expenses</a>
+        <a href="#" class="nav-link">Card Transactions</a>
+    </div>
     <div class="main-container">
         
         <div class="breadcrumb">
-            Home / Expense / <a href="#">Manage Expenses</a> / 2024 RAVE Emergency Management
-        </div>
-
-        <div class="alert-section">
-            <div class="alert-row">
-                <div class="alert-item">
-                    <span>Alerts: **1**</span>
-                    <span>Expense</span>
-                    <span>Airfare</span>
-                    <span>10/02/2024</span>
-                    <span>$228.95</span>
-                </div>
-                <div class="f-icon arrow-up-box">
-                    <span class="f-icon fa-arrow-up"></span>
-                </div>
-            </div>
-            <div class="alert-message">
-                <strong><span class="f-icon fa-flag"></span> You must attach a receipt image to this expense.</strong> <a href="#">View</a>
-            </div>
+            Home / Expense / <a href="#">Manage Expenses</a> / March 2010 - Expense Report
         </div>
 
         <div class="report-header">
             <div class="report-title">
-                <h2>2024 RAVE Emergency Management **$333.11**</h2>
-                <div class="report-meta">Not Submitted | Report Number: A1D3JN</div>
+                <h2>March 2010 - Expense Report</h2>
+                <div class="report-meta">Not Submitted | Report Number: 3659</div>
             </div>
             <div class="action-buttons">
                 <button class="submit-btn">Submit Report</button>
