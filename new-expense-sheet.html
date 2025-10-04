@@ -11,13 +11,13 @@
             font-family: 'Roboto', sans-serif;
             margin: 0;
             background-color: #f4f5f7;
-            color: #1a1a1a; /* Default body text color for the expense sheet */
+            color: #1a1a1a;
             font-size: 14px;
         }
         
         a {
             text-decoration: none;
-            color: #0087ea;
+            color: #0087ea; /* SAP blue link color */
         }
 
         /* --- 1. Main Header Bar (Dark Gray/Blue) --- */
@@ -97,7 +97,7 @@
             color: white;
             font-weight: 400;
             margin-left: 15px;
-            white-space: nowrap; /* Prevent name from wrapping */
+            white-space: nowrap;
         }
         .admin-link {
             margin-left: 0;
@@ -111,7 +111,7 @@
         }
         .help-link span {
             margin-left: 5px;
-            font-size: 8px; /* Dropdown triangle */
+            font-size: 8px;
         }
 
 
@@ -147,9 +147,21 @@
             background-color: white;
             padding: 0 40px;
             height: 40px;
-            border-bottom: 1px solid #ddd;
+            /* The screenshot implies no bottom border on the bar itself, 
+               as the border comes from the page content line */
             display: flex;
-            align-items: flex-end; /* Align tabs to the bottom edge */
+            align-items: flex-end;
+            position: relative; /* Needed for the content line below */
+        }
+        
+        /* Add a light gray line across the bottom of the content area */
+        .secondary-nav-bar::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-bottom: 1px solid #ddd;
         }
 
         .sub-nav-tab {
@@ -172,17 +184,18 @@
         .sub-nav-tab.active::after {
             content: '';
             position: absolute;
-            bottom: -1px; /* Position at the bottom of the bar */
+            bottom: -1px; /* Position to overlap the page line */
             left: 0;
             right: 0;
             height: 2px;
             background-color: #0087ea; /* Blue line */
+            z-index: 1; /* Ensure it is above the general secondary-nav-bar::after */
         }
         
         .sub-nav-tab.active::before {
             content: '';
             position: absolute;
-            bottom: -8px; /* Below the blue line */
+            bottom: -8px; 
             left: 50%;
             transform: translateX(-50%);
             width: 0;
@@ -190,7 +203,7 @@
             border-left: 5px solid transparent;
             border-right: 5px solid transparent;
             border-top: 5px solid #0087ea; /* Blue triangle */
-            z-index: 10;
+            z-index: 2; /* Ensure it is above the blue line */
         }
 
         /* --- 3. Expense Report Body --- */
@@ -198,6 +211,9 @@
             padding: 20px 40px;
             display: flex;
             flex-direction: column;
+            background-color: white; /* Report content has a white background */
+            /* The content should span the width between the navigation bars */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
         }
 
         .report-header-section {
@@ -211,39 +227,46 @@
             font-size: 22px;
             font-weight: 400;
             margin: 0;
+            color: #1a1a1a;
         }
 
         .report-actions button {
             padding: 8px 15px;
             border-radius: 4px;
-            font-weight: 500;
+            font-weight: 400; /* Font weight matches standard text */
             cursor: pointer;
             margin-left: 10px;
-            font-size: 14px;
+            font-size: 13px; /* Slightly smaller font size on buttons */
         }
         
         .recall-btn {
             background-color: #fff;
             color: #ff9900;
             border: 1px solid #ff9900;
+            box-shadow: none; /* Ensure clean borders */
         }
         
         .copy-btn {
             background-color: #fff;
             color: #0087ea;
             border: 1px solid #0087ea;
+            box-shadow: none;
         }
 
         .report-tabs {
             margin-bottom: 20px;
+            border-bottom: 1px solid #ddd; /* Separator line under the main report tabs */
         }
         
         .report-tabs a {
             margin-right: 25px;
             color: #666;
             font-weight: 400;
-            font-size: 15px;
+            font-size: 13px; /* Smaller font for these tabs */
             display: inline-block;
+            padding-bottom: 5px;
+            position: relative;
+            top: 1px; /* Visual alignment for border */
         }
         
         .report-tabs .active-tab {
@@ -259,20 +282,22 @@
         }
 
         .expenses-list-container {
-            flex: 1 1 50%;
+            flex: 1 1 55%; /* Adjusted width for expense list */
             background-color: white;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 2px; /* Very subtle rounding */
             padding: 10px;
+            box-shadow: none;
         }
 
         .summary-card {
-            flex: 1 1 50%;
+            flex: 1 1 45%; /* Adjusted width for summary card */
             background-color: white;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 2px;
             padding: 15px;
             height: fit-content;
+            box-shadow: none;
         }
 
         /* Expenses List */
@@ -289,6 +314,7 @@
         .expenses-table {
             width: 100%;
             border-collapse: collapse;
+            font-size: 13px; /* Table content size */
         }
 
         .expenses-table th, .expenses-table td {
@@ -297,24 +323,24 @@
         }
 
         .expenses-table th {
-            font-weight: 500;
+            font-weight: 400;
             color: #666;
             text-align: left;
             font-size: 13px;
         }
         
-        .expenses-table td {
-            font-size: 13px;
+        .expenses-table td strong {
+            font-weight: 500; /* Expense name bolding */
         }
 
         .expenses-table .amount-col, .expenses-table .requested-col, .expenses-table .date-col {
             text-align: right;
-            width: 100px;
+            width: 90px;
             white-space: nowrap;
         }
         
         .expenses-table .date-col {
-            width: 80px;
+            width: 70px;
         }
 
         .expenses-table .icon-col {
@@ -324,7 +350,8 @@
 
         .expenses-table .total-row {
             font-weight: 700;
-            border-top: 2px solid #ccc;
+            border-top: 2px solid #ccc; /* Thicker line above totals */
+            color: #1a1a1a;
         }
 
         /* Report Summary Card */
@@ -332,6 +359,7 @@
             font-size: 15px;
             font-weight: 500;
             margin: 0 0 10px 0;
+            color: #1a1a1a;
         }
         
         .summary-card .summary-tabs {
@@ -345,6 +373,7 @@
             border-bottom: 2px solid #0087ea;
             padding-bottom: 5px;
             display: inline-block;
+            font-size: 13px;
         }
 
         .summary-totals-table {
@@ -362,12 +391,12 @@
         .summary-totals-table th {
             text-align: left;
             font-weight: 500;
-            color: #666;
+            color: #1a1a1a;
         }
         
         .summary-totals-table .amount-due-company, 
         .summary-totals-table .amount-due-employee {
-            font-weight: 700;
+            font-weight: 500; /* Adjusted to look slightly less bold than table totals */
             color: #1a1a1a;
             width: 130px;
         }
@@ -379,8 +408,46 @@
         }
         .f-icon.fa-caret-down::before { content: '▼'; font-size: 8px; }
         .f-icon.fa-arrow::before { content: '►'; color: #0087ea; font-size: 10px; }
-        .f-icon.fa-date-icon::before { content: '📅'; color: #0087ea; font-size: 14px; }
-        .f-icon.fa-warning-icon::before { content: '⚠️'; color: #0087ea; font-size: 14px; }
+        /* Adjusted icon styling for better visual match */
+        .f-icon.fa-date-icon::before { content: '&#x1F4C5;'; color: #0087ea; font-size: 14px; }
+        .f-icon.fa-warning-icon::before { content: '&#x26A0;'; color: #0087ea; font-size: 14px; }
+        .expenses-table .icon-col .f-icon.fa-date-icon::before {
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            border: 1px solid #0087ea;
+            border-radius: 50%;
+            background-color: #0087ea;
+            margin: 0 auto;
+            /* Placeholder for the blue circle icon */
+        }
+        .expenses-table .icon-col .f-icon.fa-warning-icon::before {
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            border: 1px solid #0087ea;
+            border-radius: 50%;
+            background-color: #0087ea;
+            margin: 0 auto;
+            /* Placeholder for the blue circle with '!' icon */
+        }
+        
+        /* Specific Fix: Match the table icons in the screenshot */
+        .expenses-table .icon-col .f-icon::before {
+             content: '\25CF'; /* Unicode for black circle, will be colored blue */
+             color: #0087ea;
+             font-size: 10px;
+        }
+        
+        .expenses-table .icon-col .f-icon.fa-warning-icon::before {
+             content: '\25CF'; 
+             color: #0087ea;
+             font-size: 10px;
+             /* Real Concur uses a circle with a dot/small icon inside, keeping it simple for imitation */
+        }
+
 
     </style>
 </head>
@@ -392,7 +459,7 @@
             
             <!-- Logo Area -->
             <div class="logo-container">
-                <div class="concur-logo">
+                <div>
                     <img src="concur-2010.png" alt="Concur Logo Placeholder">
                 </div>
             </div>
@@ -477,35 +544,35 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="icon-col"><span class="f-icon fa-date-icon"></span></td>
+                            <td class="icon-col"><span class="f-icon"></span></td>
                             <td class="date-col">08/28/2014</td>
                             <td>**Airfare**<br>American Airlines</td>
                             <td class="amount-col">$560.00</td>
                             <td class="requested-col">$560.00</td>
                         </tr>
                         <tr>
-                            <td class="icon-col"><span class="f-icon fa-warning-icon"></span></td>
+                            <td class="icon-col"><span class="f-icon"></span></td>
                             <td class="date-col">08/28/2014</td>
                             <td>**Hotel/Motel/B&B**</td>
                             <td class="amount-col">$450.00</td>
                             <td class="requested-col">$450.00</td>
                         </tr>
                         <tr>
-                            <td class="icon-col"><span class="f-icon fa-date-icon"></span></td>
+                            <td class="icon-col"><span class="f-icon"></span></td>
                             <td class="date-col">08/28/2014</td>
                             <td>**Car Rental**<br>Budget</td>
                             <td class="amount-col">$190.00</td>
                             <td class="requested-col">$190.00</td>
                         </tr>
                         <tr>
-                            <td class="icon-col"><span class="f-icon fa-date-icon"></span></td>
+                            <td class="icon-col"><span class="f-icon"></span></td>
                             <td class="date-col">08/28/2014</td>
                             <td>**Taxi**<br>Denver, Colorado</td>
                             <td class="amount-col">$120.00</td>
                             <td class="requested-col">$120.00</td>
                         </tr>
                         <tr>
-                            <td class="icon-col"><span class="f-icon fa-date-icon"></span></td>
+                            <td class="icon-col"><span class="f-icon"></span></td>
                             <td class="date-col">08/28/2014</td>
                             <td>**Meals (Breakfast/Lunch/Dinner)**</td>
                             <td class="amount-col">$50.00</td>
@@ -514,7 +581,7 @@
                         <!-- Total Row -->
                         <tr>
                             <td class="icon-col"><span class="f-icon fa-arrow"></span></td>
-                            <td colspan="2" style="text-align: right; font-weight: 700;">TOTAL AMOUNT</td>
+                            <td colspan="2" style="text-align: right; font-weight: 700; color: #1a1a1a; font-size: 13px;">TOTAL AMOUNT</td>
                             <td class="amount-col total-row">**$1,370.00**</td>
                             <td class="requested-col total-row">**$1,370.00**</td>
                         </tr>
