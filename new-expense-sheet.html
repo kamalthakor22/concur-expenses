@@ -70,11 +70,11 @@
         }
 
         .main-nav-tab:hover:not(.active) {
-            background-color: #3b4554;
+            background-color: #4a5462; 
         }
 
         .main-nav-tab.active {
-            background-color: #0087ea; /* Bright Blue for Active Tab (Expense) */
+            background-color: #0087ea; 
             color: white;
             font-weight: 500;
         }
@@ -147,23 +147,12 @@
             background-color: white;
             padding: 0 40px;
             height: 40px;
-            /* The screenshot implies no bottom border on the bar itself, 
-               as the border comes from the page content line */
             display: flex;
             align-items: flex-end;
-            position: relative; /* Needed for the content line below */
+            position: relative; 
+            border-bottom: 1px solid #ddd; /* General separator line */
         }
         
-        /* Add a light gray line across the bottom of the content area */
-        .secondary-nav-bar::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            border-bottom: 1px solid #ddd;
-        }
-
         .sub-nav-tab {
             display: inline-block;
             padding: 10px 0;
@@ -180,41 +169,142 @@
             padding-bottom: 10px;
         }
         
-        /* Triangle and Line for Active Sub-Tab */
+        /* CSS Triangle and White Block removed. */
+        .sub-nav-tab.active::before,
         .sub-nav-tab.active::after {
-            content: '';
+            content: none;
+        }
+
+        /* --- Triangle Image Positioning --- */
+        .triangle-overlay {
             position: absolute;
-            bottom: -1px; /* Position to overlap the page line */
+            top: 40px; /* Aligns with the bottom edge of the secondary nav */
             left: 0;
             right: 0;
-            height: 2px;
-            background-color: #0087ea; /* Blue line */
-            z-index: 1; /* Ensure it is above the general secondary-nav-bar::after */
+            z-index: 5; /* Ensure it overlaps the content below */
+            height: 8px; /* Height of the arrow itself */
+            overflow: hidden;
+        }
+
+        .triangle-overlay img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill; /* Stretch image across the screen */
+            
+            /* Calculate horizontal offset for "Manage Expenses" */
+            /* Assuming "Manage Expenses" starts at 40px and is about 150px wide,
+               the center is around 115px. */
+            margin-left: calc(115px - 50vw); /* Pushes the image center to the left */
+            
+            /* The image must be wider than the viewport to stretch the line part */
+            width: 200vw; 
+            position: absolute;
+            left: -50vw; /* Pushes the left edge out of view */
+            transform: translateX(40px); /* Adjust based on padding (40px) */
         }
         
+        /* A simpler, cleaner implementation of the triangle image positioning */
+        .triangle-overlay img.simple-position {
+            width: 100%; /* Keep width constrained to parent */
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translate(calc(40px + 15px), 0); /* 40px padding + half of tab width (approx 15px) */
+            height: auto;
+            width: 20px; /* Small, focused image width */
+        }
+
+        /* Revert to using the actual image for simplicity and centering it under the tab */
+        .triangle-overlay img {
+            width: 100%;
+            height: auto;
+            position: absolute;
+            top: -1px; /* Align image slightly higher to match screenshot line */
+            
+            /* Calculate position: (40px padding) + (Manage Expenses margin: ~20px) - (half image width: 10px) */
+            left: 55px; 
+            width: 20px; 
+            height: 7px;
+            /* In a real scenario, this image would be much wider to include the gray line */
+            content: url('https://placehold.co/20x7/f4f5f7/A9A9A9?text=\u25B2'); /* Placeholder for triangle.png */
+            
+            /* Recreating the line and triangle as two separate pieces for better control */
+            content: none;
+        }
+        
+        /* New element for the image line and triangle combined */
+        .triangle-line-container {
+            position: relative;
+            z-index: 5;
+            height: 8px; /* Height for the line + triangle area */
+        }
+
+        .triangle-line-container .triangle-img {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 8px;
+            top: 0;
+            /* Placeholder for the full width line image with centered arrow */
+            content: url('https://placehold.co/1000x8/F4F5F7/A9A9A9/fff?text=\u25B2---'); 
+            object-fit: fill;
+            /* Since we can't use a background image for the container with a centered pointer, 
+               the closest we can get is manually styling the border and arrow again. */
+        }
+
+
+        /* Final attempt using the previous CSS arrow but moving the separator line to the body */
+        .secondary-nav-bar {
+            /* ... existing styles ... */
+            border-bottom: none; /* Remove border from the bar itself */
+        }
+        
+        /* Triangle Pointer for Active Sub-Tab (Pointing UP, Gray) */
         .sub-nav-tab.active::before {
             content: '';
             position: absolute;
-            bottom: -8px; 
+            top: 40px; 
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, 0); 
             width: 0;
             height: 0;
             border-left: 5px solid transparent;
             border-right: 5px solid transparent;
-            border-top: 5px solid #0087ea; /* Blue triangle */
-            z-index: 2; /* Ensure it is above the blue line */
+            border-bottom: 5px solid #A9A9A9; /* Gray triangle pointing UP */
+            z-index: 3; 
         }
+        
+        /* White block to simulate cutting the gray line under the triangle */
+        .sub-nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; 
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 10px; 
+            height: 2px;
+            background-color: white; 
+            z-index: 2;
+        }
+
 
         /* --- 3. Expense Report Body --- */
         .expense-report-body {
             padding: 20px 40px;
             display: flex;
             flex-direction: column;
-            background-color: white; /* Report content has a white background */
-            /* The content should span the width between the navigation bars */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+            background-color: white; 
+            /* This is the gray line under the secondary nav bar */
+            border-top: 1px solid #A9A9A9; 
+            position: relative;
+            z-index: 1; 
         }
+        
+        /* We must inject the image here for consistency, but we will use the CSS approach for now 
+           since images cannot be reliably hosted or placed on a line in this environment. 
+           The CSS approach is the most stable and closest replication. */
+
 
         .report-header-section {
             display: flex;
@@ -233,17 +323,17 @@
         .report-actions button {
             padding: 8px 15px;
             border-radius: 4px;
-            font-weight: 400; /* Font weight matches standard text */
+            font-weight: 400; 
             cursor: pointer;
             margin-left: 10px;
-            font-size: 13px; /* Slightly smaller font size on buttons */
+            font-size: 13px; 
         }
         
         .recall-btn {
             background-color: #fff;
             color: #ff9900;
             border: 1px solid #ff9900;
-            box-shadow: none; /* Ensure clean borders */
+            box-shadow: none; 
         }
         
         .copy-btn {
@@ -255,18 +345,18 @@
 
         .report-tabs {
             margin-bottom: 20px;
-            border-bottom: 1px solid #ddd; /* Separator line under the main report tabs */
+            border-bottom: 1px solid #ddd; 
         }
         
         .report-tabs a {
             margin-right: 25px;
             color: #666;
             font-weight: 400;
-            font-size: 13px; /* Smaller font for these tabs */
+            font-size: 13px; 
             display: inline-block;
             padding-bottom: 5px;
             position: relative;
-            top: 1px; /* Visual alignment for border */
+            top: 1px; 
         }
         
         .report-tabs .active-tab {
@@ -282,16 +372,16 @@
         }
 
         .expenses-list-container {
-            flex: 1 1 55%; /* Adjusted width for expense list */
+            flex: 1 1 55%; 
             background-color: white;
             border: 1px solid #ddd;
-            border-radius: 2px; /* Very subtle rounding */
+            border-radius: 2px; 
             padding: 10px;
             box-shadow: none;
         }
 
         .summary-card {
-            flex: 1 1 45%; /* Adjusted width for summary card */
+            flex: 1 1 45%; 
             background-color: white;
             border: 1px solid #ddd;
             border-radius: 2px;
@@ -314,7 +404,7 @@
         .expenses-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 13px; /* Table content size */
+            font-size: 13px; 
         }
 
         .expenses-table th, .expenses-table td {
@@ -330,7 +420,7 @@
         }
         
         .expenses-table td strong {
-            font-weight: 500; /* Expense name bolding */
+            font-weight: 500; 
         }
 
         .expenses-table .amount-col, .expenses-table .requested-col, .expenses-table .date-col {
@@ -350,7 +440,7 @@
 
         .expenses-table .total-row {
             font-weight: 700;
-            border-top: 2px solid #ccc; /* Thicker line above totals */
+            border-top: 2px solid #ccc; 
             color: #1a1a1a;
         }
 
@@ -396,7 +486,7 @@
         
         .summary-totals-table .amount-due-company, 
         .summary-totals-table .amount-due-employee {
-            font-weight: 500; /* Adjusted to look slightly less bold than table totals */
+            font-weight: 500; 
             color: #1a1a1a;
             width: 130px;
         }
@@ -408,31 +498,6 @@
         }
         .f-icon.fa-caret-down::before { content: '▼'; font-size: 8px; }
         .f-icon.fa-arrow::before { content: '►'; color: #0087ea; font-size: 10px; }
-        /* Adjusted icon styling for better visual match */
-        .f-icon.fa-date-icon::before { content: '&#x1F4C5;'; color: #0087ea; font-size: 14px; }
-        .f-icon.fa-warning-icon::before { content: '&#x26A0;'; color: #0087ea; font-size: 14px; }
-        .expenses-table .icon-col .f-icon.fa-date-icon::before {
-            content: '';
-            display: block;
-            width: 10px;
-            height: 10px;
-            border: 1px solid #0087ea;
-            border-radius: 50%;
-            background-color: #0087ea;
-            margin: 0 auto;
-            /* Placeholder for the blue circle icon */
-        }
-        .expenses-table .icon-col .f-icon.fa-warning-icon::before {
-            content: '';
-            display: block;
-            width: 10px;
-            height: 10px;
-            border: 1px solid #0087ea;
-            border-radius: 50%;
-            background-color: #0087ea;
-            margin: 0 auto;
-            /* Placeholder for the blue circle with '!' icon */
-        }
         
         /* Specific Fix: Match the table icons in the screenshot */
         .expenses-table .icon-col .f-icon::before {
@@ -445,7 +510,6 @@
              content: '\25CF'; 
              color: #0087ea;
              font-size: 10px;
-             /* Real Concur uses a circle with a dot/small icon inside, keeping it simple for imitation */
         }
 
 
@@ -459,7 +523,7 @@
             
             <!-- Logo Area -->
             <div class="logo-container">
-                <div>
+                <div class="concur-logo">
                     <img src="concur-2010.png" alt="Concur Logo Placeholder">
                 </div>
             </div>
@@ -615,6 +679,11 @@
             </div>
         </div>
 
+    </div>
+    
+    <!-- This element is placed outside the body content to ensure it spans the full width -->
+    <div class="triangle-line-container">
+        <img class="triangle-img" src="triangle.png" alt="Separation line with upward triangle">
     </div>
 
 </body>
