@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Concur Header Duplication</title>
+    <title>Concur Expense Report - Denver Conference</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300,400,500,700&display=swap" rel="stylesheet">
     <style>
         /* General Reset and Font */
@@ -11,17 +11,18 @@
             font-family: 'Roboto', sans-serif;
             margin: 0;
             background-color: #f4f5f7;
-            color: #ccc;
+            color: #1a1a1a; /* Default body text color for the expense sheet */
+            font-size: 14px;
         }
         
         a {
             text-decoration: none;
-            color: inherit;
+            color: #0087ea;
         }
 
-        /* --- Main Header Bar (Dark Gray/Blue) --- */
+        /* --- 1. Main Header Bar (Dark Gray/Blue) --- */
         .main-header-bar {
-            background-color: #2b3543; /* Dark gray/blue background */
+            background-color: #2b3543; 
             display: flex;
             justify-content: space-between;
             align-items: stretch;
@@ -39,30 +40,17 @@
             display: flex;
             align-items: center;
             padding: 0 15px;
-            background-color: #1a222c; /* Slightly darker background for the logo area */
+            background-color: #1a222c; 
         }
         
-        /* CSS-only Logo for CONCUR C */
-        .concur-logo {
-            display: flex;
-            align-items: center;
-            color: white;
-            font-size: 18px;
-            font-weight: 700;
+        /* Logo: Using a placeholder image for "concur-2010.png" */
+        .concur-logo img {
+            height: 25px; 
+            width: auto;
+            /* Placeholder for image URL */
+            content: url('https://placehold.co/100x30/1a222c/ffffff?text=CONCUR');
+            opacity: 0.9;
         }
-
-        .logo-c-icon {
-            /* Simulates the stylized C logo */
-            font-size: 20px;
-            font-weight: 500;
-            margin-right: 5px;
-            position: relative;
-        }
-        
-        .logo-c-icon::before {
-            content: "C";
-        }
-        /* Optional: Add a simple underline or shadow effect to suggest the graphic C */
 
         /* Main Navigation Tabs */
         .main-nav-tabs {
@@ -91,7 +79,7 @@
             font-weight: 500;
         }
 
-        /* Right Side: Administration & Profile */
+        /* Right Side: User Info & Profile */
         .header-right {
             display: flex;
             align-items: center;
@@ -109,6 +97,7 @@
             color: white;
             font-weight: 400;
             margin-left: 15px;
+            white-space: nowrap; /* Prevent name from wrapping */
         }
         .admin-link {
             margin-left: 0;
@@ -153,14 +142,14 @@
             color: #2b3543;
         }
 
-        /* --- Secondary Navigation Bar (White Background) --- */
+        /* --- 2. Secondary White Navigation Bar (Tabs) --- */
         .secondary-nav-bar {
             background-color: white;
             padding: 0 40px;
             height: 40px;
             border-bottom: 1px solid #ddd;
             display: flex;
-            align-items: center;
+            align-items: flex-end; /* Align tabs to the bottom edge */
         }
 
         .sub-nav-tab {
@@ -171,14 +160,227 @@
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
+            position: relative;
         }
 
         .sub-nav-tab.active {
             color: #1a1a1a;
-            border-bottom: 2px solid #0087ea; /* Blue line for active sub-tab */
-            padding-bottom: 8px; /* Adjust padding to center text vertically with border */
+            padding-bottom: 10px;
+        }
+        
+        /* Triangle and Line for Active Sub-Tab */
+        .sub-nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; /* Position at the bottom of the bar */
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #0087ea; /* Blue line */
+        }
+        
+        .sub-nav-tab.active::before {
+            content: '';
+            position: absolute;
+            bottom: -8px; /* Below the blue line */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #0087ea; /* Blue triangle */
+            z-index: 10;
         }
 
+        /* --- 3. Expense Report Body --- */
+        .expense-report-body {
+            padding: 20px 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .report-header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .report-header-section h2 {
+            font-size: 22px;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        .report-actions button {
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+        
+        .recall-btn {
+            background-color: #fff;
+            color: #ff9900;
+            border: 1px solid #ff9900;
+        }
+        
+        .copy-btn {
+            background-color: #fff;
+            color: #0087ea;
+            border: 1px solid #0087ea;
+        }
+
+        .report-tabs {
+            margin-bottom: 20px;
+        }
+        
+        .report-tabs a {
+            margin-right: 25px;
+            color: #666;
+            font-weight: 400;
+            font-size: 15px;
+            display: inline-block;
+        }
+        
+        .report-tabs .active-tab {
+            color: #1a1a1a;
+            font-weight: 500;
+            border-bottom: 2px solid #0087ea;
+            padding-bottom: 5px;
+        }
+
+        .content-area {
+            display: flex;
+            gap: 20px;
+        }
+
+        .expenses-list-container {
+            flex: 1 1 50%;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+        }
+
+        .summary-card {
+            flex: 1 1 50%;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            height: fit-content;
+        }
+
+        /* Expenses List */
+        .expenses-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0 10px 0;
+            font-size: 15px;
+            font-weight: 500;
+            color: #1a1a1a;
+        }
+
+        .expenses-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .expenses-table th, .expenses-table td {
+            padding: 8px 5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .expenses-table th {
+            font-weight: 500;
+            color: #666;
+            text-align: left;
+            font-size: 13px;
+        }
+        
+        .expenses-table td {
+            font-size: 13px;
+        }
+
+        .expenses-table .amount-col, .expenses-table .requested-col, .expenses-table .date-col {
+            text-align: right;
+            width: 100px;
+            white-space: nowrap;
+        }
+        
+        .expenses-table .date-col {
+            width: 80px;
+        }
+
+        .expenses-table .icon-col {
+            width: 30px;
+            text-align: center;
+        }
+
+        .expenses-table .total-row {
+            font-weight: 700;
+            border-top: 2px solid #ccc;
+        }
+
+        /* Report Summary Card */
+        .summary-card h4 {
+            font-size: 15px;
+            font-weight: 500;
+            margin: 0 0 10px 0;
+        }
+        
+        .summary-card .summary-tabs {
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 15px;
+        }
+
+        .summary-card .summary-tabs a {
+            color: #1a1a1a;
+            font-weight: 500;
+            border-bottom: 2px solid #0087ea;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        .summary-totals-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .summary-totals-table th, .summary-totals-table td {
+            padding: 5px 0;
+            text-align: right;
+            font-weight: 400;
+        }
+
+        .summary-totals-table th {
+            text-align: left;
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .summary-totals-table .amount-due-company, 
+        .summary-totals-table .amount-due-employee {
+            font-weight: 700;
+            color: #1a1a1a;
+            width: 130px;
+        }
+
+        /* Icon Helpers */
+        .f-icon {
+            font-family: Arial, sans-serif;
+            font-style: normal;
+        }
+        .f-icon.fa-caret-down::before { content: '▼'; font-size: 8px; }
+        .f-icon.fa-arrow::before { content: '►'; color: #0087ea; font-size: 10px; }
+        .f-icon.fa-date-icon::before { content: '📅'; color: #0087ea; font-size: 14px; }
+        .f-icon.fa-warning-icon::before { content: '⚠️'; color: #0087ea; font-size: 14px; }
 
     </style>
 </head>
@@ -191,8 +393,7 @@
             <!-- Logo Area -->
             <div class="logo-container">
                 <div class="concur-logo">
-                    <span class="logo-c-icon"></span>
-                    <span>CONCUR</span>
+                    <img src="concur-2010.png" alt="Concur Logo Placeholder">
                 </div>
             </div>
 
@@ -230,6 +431,123 @@
     <div class="secondary-nav-bar">
         <a href="#" class="sub-nav-tab active">Manage Expenses</a>
         <a href="#" class="sub-nav-tab">Process Reports</a>
+    </div>
+    
+    <!-- 3. Expense Report Body -->
+    <div class="expense-report-body">
+        
+        <div class="report-header-section">
+            <h2>Denver Conference- APS</h2>
+            <div class="report-actions">
+                <button class="recall-btn">Recall</button>
+                <button class="copy-btn">Copy Report</button>
+            </div>
+        </div>
+        
+        <!-- Report Tabs (Summary, Details, Receipts, Print) -->
+        <div class="report-tabs">
+            <a href="#" class="active-tab">Summary</a>
+            <a href="#">Details <span class="f-icon fa-caret-down"></span></a>
+            <a href="#">Receipts <span class="f-icon fa-caret-down"></span></a>
+            <a href="#">Print <span class="f-icon fa-caret-down"></span></a>
+        </div>
+        
+        <div class="content-area">
+            
+            <!-- Left Panel: Expenses List -->
+            <div class="expenses-list-container">
+                <div class="expenses-header">
+                    <span>Expenses</span>
+                    <div style="font-size: 13px; font-weight: 400; color: #666;">
+                        <a href="#">View</a> 
+                        <span class="f-icon fa-caret-down" style="margin-right: 15px;"></span>
+                        <a href="#">Summary</a>
+                    </div>
+                </div>
+                
+                <table class="expenses-table">
+                    <thead>
+                        <tr>
+                            <th class="icon-col"></th>
+                            <th class="date-col">Date</th>
+                            <th>Expense</th>
+                            <th class="amount-col">Amount</th>
+                            <th class="requested-col">Requested</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="icon-col"><span class="f-icon fa-date-icon"></span></td>
+                            <td class="date-col">08/28/2014</td>
+                            <td>**Airfare**<br>American Airlines</td>
+                            <td class="amount-col">$560.00</td>
+                            <td class="requested-col">$560.00</td>
+                        </tr>
+                        <tr>
+                            <td class="icon-col"><span class="f-icon fa-warning-icon"></span></td>
+                            <td class="date-col">08/28/2014</td>
+                            <td>**Hotel/Motel/B&B**</td>
+                            <td class="amount-col">$450.00</td>
+                            <td class="requested-col">$450.00</td>
+                        </tr>
+                        <tr>
+                            <td class="icon-col"><span class="f-icon fa-date-icon"></span></td>
+                            <td class="date-col">08/28/2014</td>
+                            <td>**Car Rental**<br>Budget</td>
+                            <td class="amount-col">$190.00</td>
+                            <td class="requested-col">$190.00</td>
+                        </tr>
+                        <tr>
+                            <td class="icon-col"><span class="f-icon fa-date-icon"></span></td>
+                            <td class="date-col">08/28/2014</td>
+                            <td>**Taxi**<br>Denver, Colorado</td>
+                            <td class="amount-col">$120.00</td>
+                            <td class="requested-col">$120.00</td>
+                        </tr>
+                        <tr>
+                            <td class="icon-col"><span class="f-icon fa-date-icon"></span></td>
+                            <td class="date-col">08/28/2014</td>
+                            <td>**Meals (Breakfast/Lunch/Dinner)**</td>
+                            <td class="amount-col">$50.00</td>
+                            <td class="requested-col">$50.00</td>
+                        </tr>
+                        <!-- Total Row -->
+                        <tr>
+                            <td class="icon-col"><span class="f-icon fa-arrow"></span></td>
+                            <td colspan="2" style="text-align: right; font-weight: 700;">TOTAL AMOUNT</td>
+                            <td class="amount-col total-row">**$1,370.00**</td>
+                            <td class="requested-col total-row">**$1,370.00**</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Right Panel: Report Summary -->
+            <div class="summary-card">
+                <h4>Report Summary</h4>
+                <div class="summary-tabs">
+                    <a href="#">Report Totals</a>
+                </div>
+                
+                <table class="summary-totals-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th class="amount-due-company">Amount Due Company</th>
+                            <th class="amount-due-employee">Amount Due Employee</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 500;"></td>
+                            <td class="amount-due-company">$0.00</td>
+                            <td class="amount-due-employee">$1,370.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
 </body>
