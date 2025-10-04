@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concur Header Duplication</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300,400,500,700&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset and Font */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background-color: #f4f5f7;
+            color: #ccc;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- Main Header Bar (Dark Gray/Blue) --- */
+        .main-header-bar {
+            background-color: #2b3543; /* Dark gray/blue background */
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            height: 50px;
+            font-size: 14px;
+        }
+
+        /* Left Side: Logo and Main Tabs */
+        .header-left {
+            display: flex;
+            align-items: stretch;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            background-color: #1a222c; /* Slightly darker background for the logo area */
+        }
+        
+        /* CSS-only Logo for CONCUR C */
+        .concur-logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .logo-c-icon {
+            /* Simulates the stylized C logo */
+            font-size: 20px;
+            font-weight: 500;
+            margin-right: 5px;
+            position: relative;
+        }
+        
+        .logo-c-icon::before {
+            content: "C";
+        }
+        /* Optional: Add a simple underline or shadow effect to suggest the graphic C */
+
+        /* Main Navigation Tabs */
+        .main-nav-tabs {
+            display: flex;
+            align-items: center;
+        }
+
+        .main-nav-tab {
+            padding: 0 15px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-weight: 400;
+            color: #ccc;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .main-nav-tab:hover:not(.active) {
+            background-color: #3b4554;
+        }
+
+        .main-nav-tab.active {
+            background-color: #0087ea; /* Bright Blue for Active Tab (Expense) */
+            color: white;
+            font-weight: 500;
+        }
+
+        /* Right Side: Administration & Profile */
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .utility-links {
+            padding: 0 15px;
+            border-right: 1px solid #4a5462;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .admin-link, .help-link {
+            color: white;
+            font-weight: 400;
+            margin-left: 15px;
+        }
+        .admin-link {
+            margin-left: 0;
+            padding-right: 15px;
+            border-right: 1px solid #4a5462;
+        }
+        
+        .help-link {
+            display: flex;
+            align-items: center;
+        }
+        .help-link span {
+            margin-left: 5px;
+            font-size: 8px; /* Dropdown triangle */
+        }
+
+
+        .profile-area {
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            color: white;
+            font-weight: 400;
+            cursor: pointer;
+        }
+
+        .profile-icon-container {
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+        }
+        
+        /* Simple person icon using Unicode for profile */
+        .profile-icon-container::before {
+            content: "👤";
+            font-size: 20px;
+            color: #2b3543;
+        }
+
+        /* --- Secondary Navigation Bar (White Background) --- */
+        .secondary-nav-bar {
+            background-color: white;
+            padding: 0 40px;
+            height: 40px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+        }
+
+        .sub-nav-tab {
+            display: inline-block;
+            padding: 10px 0;
+            margin-right: 30px;
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .sub-nav-tab.active {
+            color: #1a1a1a;
+            border-bottom: 2px solid #0087ea; /* Blue line for active sub-tab */
+            padding-bottom: 8px; /* Adjust padding to center text vertically with border */
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <!-- 1. Main Dark Header Bar -->
+    <div class="main-header-bar">
+        <div class="header-left">
+            
+            <!-- Logo Area -->
+            <div class="logo-container">
+                <div class="concur-logo">
+                    <span class="logo-c-icon"></span>
+                    <span>CONCUR</span>
+                </div>
+            </div>
+
+            <!-- Main Navigation Tabs -->
+            <div class="main-nav-tabs">
+                <div class="main-nav-tab active">Expense</div>
+                <div class="main-nav-tab">Approvals</div>
+                <div class="main-nav-tab">Reporting</div>
+                <div class="main-nav-tab">App Center</div>
+            </div>
+        </div>
+
+        <div class="header-right">
+            
+            <!-- Utility Links -->
+            <div class="utility-links">
+                <div class="admin-link">Administration</div>
+                |
+                <div class="help-link">
+                    Help 
+                    <span>▼</span>
+                </div>
+            </div>
+
+            <!-- Profile Area -->
+            <div class="profile-area">
+                Profile 
+                <span style="margin-right: 5px;">▼</span>
+                <div class="profile-icon-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Secondary White Navigation Bar -->
+    <div class="secondary-nav-bar">
+        <a href="#" class="sub-nav-tab active">Manage Expenses</a>
+        <a href="#" class="sub-nav-tab">Process Reports</a>
+    </div>
+
+</body>
+</html>
